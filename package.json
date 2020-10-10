@@ -1,0 +1,59 @@
+{
+  "name": "angular",
+  "version": "0.0.0",
+  "engines": {
+    "node": "12.4.0",
+    "npm": "6.9.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "angular/*"
+    ]
+  },
+  "scripts": {
+    "f": "cd angular && ng serve",
+    "b": "nodemon ./server.ts",
+    "b2": "nodemon ./app.js",
+    "prod-front": "cd angular && ng build --prod",
+    "back-front": "cd node && tsc",
+    "dep-front-install": "cd api && npm i && cd ../angular && npm i",
+    "dep-back-install": "cd api && npm i && cd ../angular && npm i",
+    "install": "cd api && npm i && cd ../angular && npm i",
+    "prod": "npm run prod-front && npm run back-front",
+    "serve": "cd node && node dist/server.js",
+    "start": "npm run prod && npm run serve",
+    "e2e": "ng e2e",
+    "init": "git init && git remote add origin https://github.com/djm2x/uplaod-resume-express-ts.git",
+    "create-branch": "git branch new-one",
+    "move-to-branch": "git checkout new-one",
+    "move-to-master-branch": "git checkout",
+    "merge-branch-to-master-branch": "git merge new-one",
+    "push": "git add . && git commit -m \"change name foler api to node\" && git push -u origin master"
+  },
+  "private": true,
+  "dependencies": {
+    "@types/multer": "^1.4.4",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.11.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "routing-controllers": "^0.8.1-alpha.2",
+    "sqlite3": "^4.2.0",
+    "tslib": "^1.10.0",
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.22"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.9",
+    "nodemon": "^2.0.2",
+    "tslint": "~5.18.0",
+    "@types/express": "^4.17.2",
+    "@types/jsonwebtoken": "^8.3.7",
+    "@types/node": "^12.11.1",
+    "ts-node": "~8.3.0",
+    "typescript": "~3.7.5"
+  }
+}
