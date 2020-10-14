@@ -1,0 +1,26 @@
+<div class="row" >
+    <div class="col-md-12 mb-3">
+        <div class="myrow">
+            <input hidden type="file" [accept]="accepts.video" #e [multiple]="config.multiple" (change)="upload(e.files)">
+
+            <button mat-raised-button type="button" (click)="openInput(e)" color="accent">
+                <mat-icon>add</mat-icon> {{nameBtn}}
+            </button>
+
+            <button mat-raised-button type="button" (click)="submit()" color="primary">
+              <mat-icon>add</mat-icon> Submit
+          </button>
+
+            &nbsp;&nbsp;
+            <div class="myrow">
+                <p *ngFor="let e of listOfNames; let i=index" style="font-size: .7em;margin: 0;">
+                    <!-- <img [src]="setIcon(e)" alt="pdf/word"> -->
+                    <span>- {{e.substring(14)}}</span>
+                    <button mat-icon-button color="warn" (click)="remove(e)" type="button">
+                        <mat-icon style="font-size: 1.3em !important;">delete_sweep</mat-icon>
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

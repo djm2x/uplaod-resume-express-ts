@@ -1,0 +1,8 @@
+<mat-nav-list>
+  <div *ngFor="let e of list; let i=index">
+    <a mat-list-item *ngIf="e !== ''" (click)="openLink(e)">
+      <span mat-line>- {{e.substring(14)}}</span>
+      <!-- <span mat-line>{{r.pieceJointe}}</span> -->
+    </a>
+  </div>
+</mat-nav-list>

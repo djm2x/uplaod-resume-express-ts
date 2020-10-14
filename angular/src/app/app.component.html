@@ -5,7 +5,7 @@
   </mat-card-header>
   <button mat-raised-button (click)="fileSelect.click()">Select File</button><br /><br />
   <h4>Selected File: {{ name }}</h4>
-  <input type="file" hidden #fileSelect name="largeFile" (change)="onFileSelect($event)" />
+  <input type="file" hidden #fileSelect name="largeFile" [multiple]="true" (change)="onFileSelect($event)" />
 
   <button mat-raised-button (click)="simpleUpload()" color="primary">
     my Upload
@@ -19,6 +19,12 @@
   <mat-progress-spinner *ngIf="uploadPercent > 0" class="example-margin" [color]="color" [mode]="mode"
     [value]="uploadPercent">
   </mat-progress-spinner>
+
+  <br><br>
+
+  <app-upload nameBtn="{{ 'btn' | translate }}" [config]="config"></app-upload>
+
+
   <mat-card-actions>
     <!-- <button mat-raised-button (click)="goToLink('https://www.linkedin.com/in/hitensharma15/')">
       <img src="https://img.icons8.com/material/24/000000/linkedin.png" />LinkedIn

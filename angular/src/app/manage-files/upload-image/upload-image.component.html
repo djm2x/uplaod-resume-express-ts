@@ -1,0 +1,42 @@
+<div class="d-flex mb-3 align-items-center">
+
+  <input hidden multiple accept="image/*" #file1 type="file" (change)="upload($event.target.files)">
+  <!-- {{file1 | json}} -->
+  <button mat-raised-button  type="button" (click)="openInput(file1)" color="accent" style="height: fit-content;">
+    <mat-icon>add</mat-icon> {{nameBtn}}
+  </button>
+  &nbsp;&nbsp;
+  <ng-container *ngIf="multiple; else elseTemplate" class="ml-3" >
+    <div *ngFor="let e of Images; let i=index" style="font-size: .7em;margin: 0;">
+      <!-- {{e.image}} -->
+      <img #img (error)="imgError(img)"  [src]="e.image" style="width: 70px; height: 70px;">
+      <button mat-icon-button color="warn" (click)="removeFromImages(e.name)" type="button">
+        <mat-icon style="font-size: 1.3em !important;">delete_sweep</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <img #img (error)="imgError(img)" [src]="oneImage" style="width: 70px; height: 70px;">
+    <button mat-icon-button color="warn" (click)="remove(oneImage)" type="button">
+      <mat-icon style="font-size: 1.3em !important;">delete_sweep</mat-icon>
+    </button>
+  </ng-template>
+
+  <!-- <div class="col-md-12">
+    <mat-slide-toggle #isUrl>Upload Image / Url Image</mat-slide-toggle>
+  </div>
+
+
+  <div class="col-md-12" *ngIf="!isUrl.checked">
+    <app-upload-image nameBtn="Image" [folderToSaveInServer]="folderToSaveInServer"
+      [propertyOfParent]="imageUrlTo" [eventSubmitToParent]="imageUrlFrom"
+      [eventSubmitFromParent]="eventSubmitFromParent">
+    </app-upload-image>
+  </div>
+
+  <mat-form-field appearance="fill" class="col-md-12" *ngIf="isUrl.checked">
+    <mat-label>Url Image</mat-label>
+    <input matInput formControlName="imageUrl" required>
+  </mat-form-field> -->
+
+</div>

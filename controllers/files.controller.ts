@@ -1,4 +1,4 @@
-import { JsonController, Param, Body, Get, Post, Put, Delete, NotFoundError, UseBefore, Req, Res, UploadedFile } from 'routing-controllers';
+import { JsonController, Param, Body, Get, Post, Put, Delete, NotFoundError, UseBefore, Req, Res, UploadedFile, UploadedFiles } from 'routing-controllers';
 import { Request, Response } from "express";
 import { User } from '../model/models';
 import * as fs from 'fs';
@@ -8,17 +8,17 @@ import { JwtService } from '../services/jwt.service';
 import { JwtMiddleware } from '../middleware/jwt.middleware';
 import * as multer from 'multer';
 import { Multer } from 'multer';
-// export const fileUploadOptions = () => {
-//   storage: multer.diskStorage({
-//       destination: (req: any, file: any, cb: any) => {},
-//       filename: (req: any, file: any, cb: any) => {}
-//   }),
-//   fileFilter: (req: any, file: any, cb: any) => {},
-//   limits: {
-//       fieldNameSize: 255,
-//       fileSize: 1024 * 1024 * 2
-//   }
-// };
+
+export const fileUploadOptions = () => {
+  storage: multer.diskStorage({
+      destination: (req, file, callback) => {
+        callback(null, `${process.cwd()}/public/${file.originalname}`);
+      },
+      filename: (req, file, callback) => {
+        callback(null, file.originalname);
+      }
+  })
+}
 
 const diskStorage = multer.diskStorage({
   destination(req, file, cb) {
@@ -50,14 +50,26 @@ export class FilesController {
     return { ok: 'you and me' };
   }
 
-  @Post('/upload0/:folder')
-  async upload0(@Param('folder') folder, @UploadedFile("file", { options: {} }) file: Express.Multer.File, @Res() res: Response) {
-
+  @Post('/uploadFiles/:folder')
+  async uploadFiles(@Param('folder') folder, @UploadedFiles("files", { options: {} }) files: Express.Multer.File[], @Res() res: Response) {
+    const public_folder = `${process.cwd()}/public`
     // Use fs.createWriteStream() method  
     // to write the file  
     // let writer = fs.createWriteStream(`${process.cwd()}/public/${file.originalname}`, { flags: 'w'})
     try {
-      await fs.promises.writeFile(`${process.cwd()}/public/${file.originalname}`, file.buffer)
+      // check file existe for remove it 
+
+      // fs.promises.access(`${process.cwd()}/public/${file.originalname}`, fs.constants.F_OK)
+      // if (fs.existsSync(`${public_folder}/${file.originalname}`)) {
+      //   await fs.promises.unlink(`${public_folder}/${file.originalname}`)
+      // }
+
+      await fs.promises.mkdir(`${public_folder}/${folder}`, { recursive: true })
+
+
+      files.forEach(async file => {
+        await fs.promises.writeFile(`${public_folder}/${folder}/${file.originalname}`, file.buffer)
+      })
     } catch (e) {
       return res.status(500).send((e as Error).message);
     }
@@ -65,7 +77,7 @@ export class FilesController {
     // Read and disply the file data on console  
     // const isSuccess = writer.write(JSON.stringify(file), null, e => console.log(e));
 
-    return { res: file, folder };
+    return { length: files.length, folder };
   }
 
   @Post('/upload')

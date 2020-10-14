@@ -1,0 +1,13 @@
+<mat-nav-list>
+  <div *ngFor="let e of list; let i=index; trackBy: trackFn">
+    <a mat-list-item>
+      <div style="width: 100%;">
+        <div class="space-between">
+          <p mat-line style="font-size: .8em;">- {{e.name}}</p>
+          <span style="font-size: .8em;">{{e.progressValue | async}} %</span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="e.progressValue | async"></mat-progress-bar>
+      </div>
+    </a>
+  </div>
+</mat-nav-list>

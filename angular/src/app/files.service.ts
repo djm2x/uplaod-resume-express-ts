@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, last, map, tap } from 'rxjs/operators';
 
 const URL = 'http://localhost:3001/api/files';
 @Injectable({
@@ -61,4 +62,6 @@ export class FilesService {
   upload0(files: FormData, folder) {
     return this.http.request(new HttpRequest('POST', `${URL}/upload0/${folder}`, files, { reportProgress: true }))
   }
+
+
 }
