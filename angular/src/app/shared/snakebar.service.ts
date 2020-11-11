@@ -37,7 +37,7 @@ export class SnackbarService {
   template: `
   <div class="row">
     <p>{{ data }}</p>
-    <mat-spinner color="warn" class="custom-spinner" diameter="27"></mat-spinner>
+    <!-- <mat-spinner color="warn" class="custom-spinner" diameter="27"></mat-spinner> -->
   </div>`,
   styles: [`
     .row {

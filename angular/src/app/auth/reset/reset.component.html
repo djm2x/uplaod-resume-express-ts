@@ -1,0 +1,50 @@
+<form [formGroup]="myForm">
+  <mat-card-content class="d-flex flex-column justify-content-center align-items-center">
+    <img class="mb-4 mt-3" src="assets/logo.png" alt="logo" width="100%">
+
+    <h3>VEUILLEZ SAISIR VOTRE ADRESSE EMAIL</h3>
+
+    <div class="">
+
+      <mat-form-field appearance="fill" class="col-md-12 p-0">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Email address" [readonly]="isEmailChecked">
+        <mat-error *ngIf="emailError">Email non valide</mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isEmailChecked" appearance="fill" class="col-md-12 p-0">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput formControlName="password" placeholder="Mot de passe" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+        <mat-error *ngIf="passwordError">{{passwordError}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isEmailChecked" appearance="fill" class="col-md-12 p-0 mb-4">
+        <mat-label>Répéter le mot de pass</mat-label>
+        <input matInput [formControl]="checkPassword" placeholder="Répéter le mot de pass"
+          [type]="hide2 ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+        <mat-error *ngIf="checkPassword.touched && checkPasswordError">{{checkPasswordError}}</mat-error>
+      </mat-form-field>
+
+      <button class="col-md-12 mb-2" mat-raised-button color="primary"
+        [disabled]="myForm.invalid || (isEmailChecked && checkPasswordError !== '')"
+        (click)="isEmailChecked ? resetPassword(checkPassword.value) : sendEmailForResetPassword(email.value)">
+        Réinitialiser
+      </button>
+
+
+      <button class="col-md-12" [routerLink]="['/auth/create']" mat-raised-button color="accent" type="button">
+        Inscription
+      </button>
+
+      <div class="d-flex flex-row-reverse mt-2 mb-2 text-muted">
+        <span style="cursor: pointer;" [routerLink]="['/auth/login']">Connexion ?</span>
+      </div>
+
+      <!-- {{myForm.value | json}} -->
+    </div>
+  </mat-card-content>
+</form>

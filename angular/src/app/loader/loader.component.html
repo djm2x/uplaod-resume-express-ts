@@ -1,0 +1,13 @@
+<span *ngIf="(loader.isLoading | async).isBegin" class="topbar">
+    <mat-progress-bar mode="determinate" color="primary" [value]="(loader.isLoading | async).count" style="height: 3px;"></mat-progress-bar>
+
+</span>
+
+
+
+
+
+<!-- <span [@openClose]="(loader.isLoading | async).isBegin ? 'open' : 'closed'" class="myspinner">
+  <mat-spinner color="accent" diameter="40" mode="determinate" [value]="(loader.isLoading | async).count"></mat-spinner>
+  <span class="percentage">{{(loader.isLoading | async).count}}</span >
+</span> -->

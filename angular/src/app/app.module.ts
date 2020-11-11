@@ -10,6 +10,8 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { MatModule } from './mat.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InjectService } from './inject.service';
+import { LoaderModule } from './loader/loader.module';
+import { LoaderInterceptor } from './loader/loader-interceptor';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { InjectService } from './inject.service';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    LoaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -31,7 +34,13 @@ import { InjectService } from './inject.service';
     }),
     MatModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,2 +1,2 @@
 export * from './session.service';
-// export * from './mytoastr.service';
+export * from './splash-screen.service';

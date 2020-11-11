@@ -8,8 +8,6 @@ export class User {
   date = new Date();
   imageUrl = '';
   role = '';
-
-
 }
 
 export class Discussion {
