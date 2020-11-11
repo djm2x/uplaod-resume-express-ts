@@ -1,0 +1,12 @@
+<mat-form-field  class="" style="width: 100%;padding: 0 5px;">
+  <mat-label>{{ label }}</mat-label>
+  <input matInput [formControl]="myAuto" [value]="myAuto.value[field]" [matAutocomplete]="auto" placeholder="auto complétion">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected0($event)">
+    <mat-option *ngFor="let e of filteredOptions | async" [value]="e" (click)="selected(e)">
+      {{ e[field] }}
+    </mat-option>
+  </mat-autocomplete>
+  <button mat-icon-button matSuffix (click)="clear()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-form-field>

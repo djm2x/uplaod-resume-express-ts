@@ -4,41 +4,46 @@ import { Container } from 'typedi';
 import { createConnection, ConnectionOptions } from 'typeorm';
 import { Application } from 'express';
 import * as express from 'express';
-import { FakeData } from './model/fake.data';
+import { SeedData } from './model/seed.data';
 
 import { config } from './config';
 import { join } from 'path';
+import { TypeormConnection } from './model/typeormConnection';
 
 useContainer(Container);
 
 class MyApp {
 
-  constructor() { }
-
-  dbConfig() {
-    const opts: ConnectionOptions = {
-      type: 'sqlite',
-      name: 'default',
-      database: `${__dirname}/data/db-travel.sqlite`,
-      entities: [`${__dirname}/model/*{.js,.ts}`],
-      synchronize: true,
-      logging: [
-        'error',
-        // 'query',
-        // 'schema'
-      ],
-    }
-
-    createConnection(opts)
-      .then(() => console.log('Create connection with database has done successfully'))
-      .then(async () => await new FakeData().insertSomeFakeData())
-      .catch(e => console.log(e))
-      ;
-
-    return this;
+  constructor() {
+    
   }
 
+  // dbConfig() {
+  //   const opts: ConnectionOptions = {
+  //     type: 'sqlite',
+  //     name: 'default',
+  //     database: `${__dirname}/data/db-travel.sqlite`,
+  //     entities: [`${__dirname}/model/*{.js,.ts}`],
+  //     synchronize: true,
+  //     logging: [
+  //       'error',
+  //       // 'query',
+  //       // 'schema'
+  //     ],
+  //   }
+
+  //   createConnection(opts)
+  //     .then(() => console.log('Create connection with database has done successfully'))
+  //     // .then(async () => new SeedData())
+  //     .catch(e => console.log(e))
+  //     ;
+
+  //   return this;
+  // }
+
   start(): Application {
+
+    TypeormConnection.dbConfig();
 
     const opts: RoutingControllersOptions = {
       routePrefix: '/api',

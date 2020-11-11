@@ -8,7 +8,7 @@ export class JwtService {
   constructor() { }
 
   createToken(user: User): string {
-    const claims: Claims = { userId: user.id, username: user.lastname };
+    const claims: Claims = { userId: user.id, username: user.nom };
     const key: Secret = config.jwt.jwtSecret;
     const opt: SignOptions = { expiresIn: '1h' };
 

@@ -1,0 +1,11 @@
+<mat-sidenav-container #sidenav style=" z-index: 9; height: calc(100vh - 200px);">
+  <mat-sidenav #snav mode="side" [opened]="true">
+    <div style="width: 220px;">
+      <app-contacts [info]="info"></app-contacts>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-message [info]="info"></app-message>
+  </mat-sidenav-content>
+</mat-sidenav-container>
