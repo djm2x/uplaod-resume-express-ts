@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEventType, HttpEvent } from '@angular/common/http';
 import { concatAll, map } from 'rxjs/operators';
 import { from, Subject } from 'rxjs';
-import { FilesService } from '../files.service';
+import { FilesService } from './files.service';
 
 @Component({
   selector: 'app-file',

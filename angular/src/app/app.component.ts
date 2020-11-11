@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEventType, HttpEvent } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-import { FilesService } from './files.service';
+import { FilesService } from './file/files.service';
 import { MyTranslateService } from './my.translate.service';
 import { concatAll, map } from 'rxjs/operators';
 import { from, Subject } from 'rxjs';

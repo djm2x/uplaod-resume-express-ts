@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,8 +8,8 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatModule } from './mat.module';
-import { ManageFilesModule } from './manage-files/manage-files.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { InjectService } from './inject.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +30,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       }
     }),
     MatModule,
-    ManageFilesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {    // Create global Service Injector.
+    InjectService.injector = this.injector;
+  }
+}
