@@ -1,14 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Message } from 'src/app/models/models';
-import { SessionService } from 'src/app/shared';
-import Echo from 'laravel-echo';
-import { PusherConnector } from 'laravel-echo/dist/connector';
-import echoOptions from '../../../../assets/json/echoOptions.json';
-
-import Pusher from 'pusher-js';
-import { environment } from 'src/environments/environment';
-(window as any).Pusher = Pusher;
+import { SessionService } from '../shared';
 
 @Injectable({
   providedIn: 'root'
@@ -18,38 +11,37 @@ export class ChatHubService {
   // updateNotifFromChatComponent = new Subject <number>();
   // notificationReceived = new Subject<any>();
 
-  private echo: Echo;
 
   constructor(private session: SessionService, @Inject('BASE_URL') protected baseUrl: string) { }
 
 
   public createConnection() {
-    const o2: IEchoOption = environment.production ? echoOptions.prod : echoOptions.dev;
-    o2.auth.headers.Authorization += this.session.token;
+    // const o2: IEchoOption = environment.production ? echoOptions.prod : echoOptions.dev;
+    // o2.auth.headers.Authorization += this.session.token;
 
-    const options = {
-      broadcaster: 'pusher',
-      authEndpoint: `${this.baseUrl}/api/broadcasting/auth`,
-      auth: {
-        Accept: 'application/json',
-        headers: { Authorization: `Bearer ${this.session.token}` }
-      },
-      key: '454c',
-      wsHost: window.location.hostname, // .replace('https://', '').replace('http://', '').replace(':8000', ''),
-      wsPort: 6001,
-      wssPort: 6001,
-      forceTLS: false,
-      // cluster: 'mt1',
-      enabledTransports: ['ws', 'wss'],
-      disableStats: true,
-      encrypted: false,
-    };
+    // const options = {
+    //   broadcaster: 'pusher',
+    //   authEndpoint: `${this.baseUrl}/api/broadcasting/auth`,
+    //   auth: {
+    //     Accept: 'application/json',
+    //     headers: { Authorization: `Bearer ${this.session.token}` }
+    //   },
+    //   key: '454c',
+    //   wsHost: window.location.hostname, // .replace('https://', '').replace('http://', '').replace(':8000', ''),
+    //   wsPort: 6001,
+    //   wssPort: 6001,
+    //   forceTLS: false,
+    //   // cluster: 'mt1',
+    //   enabledTransports: ['ws', 'wss'],
+    //   disableStats: true,
+    //   encrypted: false,
+    // };
 
-    this.echo = new Echo(echoOptions.dynamic ? options : o2);
+    // this.echo = new Echo(echoOptions.dynamic ? options : o2);
 
-    // this.echo.connect();
+    // // this.echo.connect();
 
-    console.warn(this.echo.options)
+    // console.warn(this.echo.options)
 
     return this;
   }
@@ -88,13 +80,13 @@ export class ChatHubService {
     //   console.warn('fanaly its works  echo.channel');
     // });
 
-    this.echo.channel(`users.${this.session.user.id}`).listen('MessageEvent', r => {
-      this.newMessage.next(r.message);
-    });
+    // this.echo.channel(`users.${this.session.user.id}`).listen('MessageEvent', r => {
+    //   this.newMessage.next(r.message);
+    // });
   }
 
   public stopConnection() {
-    this.echo.disconnect();
+    // this.echo.disconnect();
   }
 
 }
